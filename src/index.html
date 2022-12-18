@@ -1,12 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online-store</title>
-</head>
-<body>
-hi there
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online-store</title>
+  </head>
+  <body>
+    <header class="header"></header>
+    <main></main>
+    <footer></footer>
+
+    <template id="header">
+      <div class="header__block header__block_dark"></div>
+      <div class="header__block header__block_main wrapper">
+        <div class="header__logo"></div>
+        <div class="header__icons">
+          <div class="header__phone"></div>
+          <div class="header__burger burger">
+            <span class="burger__icon"></span>
+          </div>
+        </div>
+      </div>
+      <div class="header__block header__block_dark wrapper">
+        <nav class="header__nav closed"></nav>
+        <label for="search" class="search-logo">
+          <input class="search" id="search" type="text" placeholder="Поиск" />
+        </label>
+        <div class="cart"></div>
+      </div>
+    </template>
+    <template id="header__nav">
+      <div class="nav-block">
+        <ul class="header__nav-list">
+          <li class="header__nav-item">Каталог</li>
+          <li class="header__nav-item">Доставка</li>
+          <li class="header__nav-item">Оплата</li>
+          <li class="header__nav-item">Акции</li>
+          <li class="header__nav-item">О нас</li>
+          <li class="header__nav-item">Контакты</li>
+        </ul>
+        <div class="header__close-nav">
+          <span class="header__close-icon"></span>
+        </div>
+      </div>
+    </template>
+  </body>
 </html>
