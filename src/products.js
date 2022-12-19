@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-undef */
 const productsData = {
   products: [
     {
@@ -1845,4 +1847,14 @@ const productsData = {
   limit: 100
 }
 
-export default productsData
+const arr = {}
+for (let i = 0; i < productsData.products.length; i++) {
+  if (!arr.hasOwnProperty(productsData.products[i].category)) {
+    arr[productsData.products[i].category] = 0
+  } else {
+    arr[productsData.products[i].category] += 1
+  }
+  // arr.push(productsData.products[i].category)
+}
+console.log(arr)
+// export default productsData

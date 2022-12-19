@@ -13,8 +13,8 @@ export default abstract class Render {
     return blockToInsert
   }
 
-  handleElementVisibility (elementToShowClass: string, modifier: string): void {
-    const elementToShow = document.querySelector('.' + elementToShowClass)
+  handleElementVisibility (elementToShow: Element, elementToShowClass: string, modifier: string): void {
+    // const elementToShow = document.querySelector('.' + elementToShowClass)
     if (elementToShow != null) {
       if (elementToShow.classList.contains(modifier)) {
         elementToShow.classList.remove(modifier)
