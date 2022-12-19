@@ -16,11 +16,11 @@
   line-height: 150%;
 }
 
-@mixin text ($color) {
+@mixin text($color) {
   color: $color;
   font-family: "Graphik LCG";
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1.6rem;
   line-height: 150%;
 }

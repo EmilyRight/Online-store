@@ -8,7 +8,62 @@
   </head>
   <body>
     <header class="header"></header>
-    <main></main>
+    <main>
+      <div class="wrapper">
+        <div class="product-card">
+          <div class="product-card__slider slider">
+            <div class="slider__inner">
+              <div class="slider__item"></div>
+              <div class="slider__item"></div>
+              <div class="slider__item"></div>
+              <div class="slider__item"></div>
+              <div class="slider__item"></div>
+              <div class="slider__item"></div>
+            </div>
+          </div>
+          <div class="slider__dots">
+            <span class="slider__dot slider__dot_active"></span>
+            <span class="slider__dot"></span>
+            <span class="slider__dot"></span>
+            <span class="slider__dot"></span>
+          </div>
+          <div class="product-card__price-block">
+            <div class="product-card__price">
+              <span class="product-card__price_discounted">1000 р.</span>
+              <span class="product-card__price_full">2000 р.</span>
+            </div>
+
+          </div>
+          <div class="product-card__rating-block">
+            <span class="product-card__rating">4.65</span>
+            <div class="product-card__rating-area">
+              <input type="radio" id="star-5" name="rating" value="5" />
+              <label for="star-5" title="Оценка «5»"></label>
+              <input type="radio" id="star-4" name="rating" value="4" />
+              <label for="star-4" title="Оценка «4»"></label>
+              <input type="radio" id="star-3" name="rating" value="3" />
+              <label for="star-3" title="Оценка «3»"></label>
+              <input type="radio" id="star-2" name="rating" value="2" />
+              <label for="star-2" title="Оценка «2»"></label>
+              <input type="radio" id="star-1" name="rating" value="1" />
+              <label for="star-1" title="Оценка «1»"></label>
+            </div>
+          </div>
+          <h3 class="product__title">Iphone 9</h3>
+          <div class="product__purchase-block purchase-block">
+            <p class="purchase-block__stock">
+              На складе: <span class="purchase-block__stock-value">1000</span> шт.
+            </p>
+            <button type="button" class="purchase-block__add-to-cart-btn cart-btn">
+              <span class="cart-btn__text">В корзину</span>
+              <span class="cart-btn__text_small">
+               <span class="cart-btn__quantity">100</span> шт. в корзине
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
     <footer></footer>
 
     <template id="header">
@@ -20,10 +75,14 @@
           <div class="header__icon header__burger burger">
             <span class="burger__icon"></span>
           </div>
-          <div class="header__icon header__cart_large header__cart"><span class='cart__products'>0</span></div>
+          <div class="header__icon header__cart_large header__cart">
+            <span class="cart__products">0</span>
+          </div>
         </div>
       </div>
-      <div class="header__block header__block_dark header__block_bottom wrapper">
+      <div
+        class="header__block header__block_dark header__block_bottom wrapper"
+      >
         <nav class="header__nav closed"></nav>
         <div class="header__icons_bottom">
           <div class="header__search searsh">
@@ -35,7 +94,9 @@
               placeholder="Поиск"
             />
           </div>
-          <div class="header__cart_small header__cart"><span class='cart__products'>0</span></div>
+          <div class="header__cart_small header__cart">
+            <span class="cart__products">0</span>
+          </div>
         </div>
       </div>
     </template>
