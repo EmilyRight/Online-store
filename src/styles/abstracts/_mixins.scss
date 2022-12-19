@@ -1,0 +1,26 @@
+@import "./vars";
+
+@mixin h1($font-size) {
+  font-size: $font-size;
+  font-family: "Graphik LCG";
+  font-style: normal;
+  font-weight: 900;
+  line-height: 130%;
+}
+
+@mixin h2 {
+  font-family: "Graphik LCG";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 150%;
+}
+
+@mixin text ($color) {
+  color: $color;
+  font-family: "Graphik LCG";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+}

@@ -1,0 +1,23 @@
+
+@import "./imports";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+ul {
+  list-style: none;
+}
+
+.wrapper {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+
+@import "../components/header/header";
