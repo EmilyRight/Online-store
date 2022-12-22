@@ -1,9 +1,9 @@
-
 @import "./imports";
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Graphik LCG";
 }
 
 html {
@@ -29,6 +29,18 @@ a:hover {
   padding-right: 2rem;
 }
 
+main {
+  background-color: $color-background-main;
+}
 
+@media screen and (min-width: 767px) {
+  .wrapper {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+
+}
 @import "../components/header/header";
 @import "../components/footer/footer";
+@import "../components/productCard/productCard";
+@import "../components/catalog/catalog.scss";
