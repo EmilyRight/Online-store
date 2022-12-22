@@ -10,6 +10,8 @@ export default class Header extends Render {
   private readonly CLASS_SEARCH_BTN = 'search-button'
   private readonly CLASS_SEARCH_INPUT = 'search__input'
   private readonly CLASS_SEARCH_INPUT_VISIBLE = 'search__input_visible'
+  private readonly burgerIcon = document.querySelector('.' + this.CLASS_HEADER_NAV)
+  private readonly searchIcon = document.querySelector('.' + this.CLASS_SEARCH_INPUT)
 
   renderHeaderContent (): void {
     super.renderContent(this.CLASS_HEADER, this.CLASS_HEADER)
@@ -20,11 +22,15 @@ export default class Header extends Render {
   }
 
   handleNavOpen (): void {
-    super.handleElementVisibility(this.CLASS_HEADER_NAV, this.CLASS_CLOSED)
+    if (this.burgerIcon !== null) {
+      super.handleElementVisibility(this.burgerIcon, this.CLASS_HEADER_NAV, this.CLASS_CLOSED)
+    }
   }
 
   handleSearchInput (): void {
-    super.handleElementVisibility(this.CLASS_SEARCH_INPUT, this.CLASS_SEARCH_INPUT_VISIBLE)
+    if (this.searchIcon != null) {
+      super.handleElementVisibility(this.searchIcon, this.CLASS_SEARCH_INPUT, this.CLASS_SEARCH_INPUT_VISIBLE)
+    }
   }
 
   showNav (): void {
