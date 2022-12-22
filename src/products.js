@@ -1847,14 +1847,4 @@ const productsData = {
   limit: 100
 }
 
-const arr = {}
-for (let i = 0; i < productsData.products.length; i++) {
-  if (!arr.hasOwnProperty(productsData.products[i].category)) {
-    arr[productsData.products[i].category] = 0
-  } else {
-    arr[productsData.products[i].category] += 1
-  }
-  // arr.push(productsData.products[i].category)
-}
-console.log(arr)
-// export default productsData
+export default productsData

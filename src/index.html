@@ -9,8 +9,10 @@
   <body>
     <header class="header"></header>
     <main>
-      <div class="wrapper">
-
+      <div class="catalog">
+        <div class="wrapper">
+          
+        </div>
       </div>
     </main>
     <footer></footer>
@@ -68,7 +70,7 @@
         </div>
       </div>
     </template>
-    
+
     <template id="product-card">
       <div class="product-card">
         <div class="product-card__slider slider">
@@ -89,24 +91,27 @@
         </div>
         <div class="product-card__price-block">
           <div class="product-card__price">
-            <span class="product-card__price_discounted">1000 р.</span>
-            <span class="product-card__price_full">2000 р.</span>
+            <span class="product-card__price_full"
+              >2000
+            </span>
+            <span class="product-card__price_discounted"
+              ></span
+            >
           </div>
-
         </div>
         <div class="product-card__rating-block">
           <span class="product-card__rating">4.65</span>
           <div class="product-card__rating-area">
-            <input type="radio" id="star-5" name="rating" value="5" />
-            <label for="star-5" title="Оценка «5»"></label>
-            <input type="radio" id="star-4" name="rating" value="4" />
-            <label for="star-4" title="Оценка «4»"></label>
-            <input type="radio" id="star-3" name="rating" value="3" />
-            <label for="star-3" title="Оценка «3»"></label>
-            <input type="radio" id="star-2" name="rating" value="2" />
-            <label for="star-2" title="Оценка «2»"></label>
-            <input type="radio" id="star-1" name="rating" value="1" />
-            <label for="star-1" title="Оценка «1»"></label>
+            <input type="radio" id="5" name="rating" class='rating__input'value="5" />
+            <label for="5" title="Оценка «5»" class='rating__label'></label>
+            <input type="radio" id="4" name="rating" value="4" class='rating__input' checked/>
+            <label for="4" title="Оценка «4»" class='rating__label'></label>
+            <input type="radio" id="3" name="rating" value="3" class='rating__input'/>
+            <label for="3" title="Оценка «3»" class='rating__label'></label>
+            <input type="radio" id="2" name="rating" value="2" class='rating__input'/>
+            <label for="2" title="Оценка «2»" class='rating__label'></label>
+            <input type="radio" id="1" name="rating" value="1" class='rating__input'/>
+            <label for="1" title="Оценка «1»" class='rating__label'></label>
           </div>
         </div>
         <h3 class="product__title">Iphone 9</h3>
@@ -114,10 +119,13 @@
           <p class="purchase-block__stock">
             На складе: <span class="purchase-block__stock-value">1000</span> шт.
           </p>
-          <button type="button" class="purchase-block__add-to-cart-btn cart-btn">
+          <button
+            type="button"
+            class="purchase-block__add-to-cart-btn cart-btn"
+          >
             <span class="cart-btn__text">В корзину</span>
             <span class="cart-btn__text_small">
-             <span class="cart-btn__quantity">100</span> шт. в корзине
+              <span class="cart-btn__quantity">100</span> шт. в корзине
             </span>
           </button>
         </div>

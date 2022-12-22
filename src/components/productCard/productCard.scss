@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
+  cursor: pointer;
 }
 .product-card__slider {
   position: relative;
@@ -25,18 +26,18 @@
   display: flex;
   flex-direction: row;
   position: absolute;
-  width: calc(10rem * 5);
+  // width: calc(10rem * 5);
 }
 
 .slider__item {
-  min-width: 34rem;
+  min-width: 25rem;
   width: 75vw;
   max-width: 24rem;
   height: 40vw;
   max-height: 12.8rem;
-  background-image: url("https://i.dummyjson.com/data/products/1/1.jpg");
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
+  // background-position: center;
 }
 .slider__dots {
   width: 100%;
@@ -57,7 +58,7 @@
 }
 .product-card__price-block {
   box-shadow: 0 0 5px $color-font-pale;
-  padding: 0.3rem;
+  padding: 0.5rem 1rem;
   border-radius: 5px;
   width: 100%;
   display: flex;
@@ -71,12 +72,17 @@
 
 }
 .product-card__price_full {
-  text-decoration: line-through;
-  @include text($color-font-pale);
-  font-size: 1.2rem;
+  display: block;
+  @include text($color-font-main);
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 .product-card__price_discounted {
-  @include text($color-font-main);
+  display: flex;
+  align-items: center;
+  text-decoration: line-through;
+  @include text($color-font-pale);
+
   font-size: 1.2rem;
 }
 .product-card__rating-block {
@@ -105,17 +111,17 @@
   cursor: pointer;
   font-size: 20px;
   line-height: 32px;
-  color: lightgrey;
+  color: #d3d3d3;
 }
 .product-card__rating-area:not(:checked) > label:before {
   content: "★";
 }
 .product-card__rating-area > input:checked ~ label {
-  color: gold;
+  color: #ffd700;
 }
 .product-card__rating-area:not(:checked) > label:hover,
 .product-card__rating-area:not(:checked) > label:hover ~ label {
-  color: gold;
+  color: #ffd700;
 }
 
 .rate-area > label:active {
@@ -139,6 +145,10 @@
   align-self: flex-end;
 }
 
+.purchase-block__more {
+  @include text($color-font-main);
+  font-size: 1.7rem;
+}
 .purchase-block__add-to-cart-btn {
   background-color: #4f37ef;
   border: none;
@@ -148,6 +158,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .cart-btn__text {

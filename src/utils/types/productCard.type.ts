@@ -1,6 +1,6 @@
-import ProductCategory from '../enums/productCategory.enum'
+// import ProductCategory from '../enums/productCategory.enum'
 
-export default interface ProductCard {
+interface ProductCardType {
   id: number
   title: string
   description: string
@@ -9,7 +9,10 @@ export default interface ProductCard {
   rating: number
   stock: number
   brand: string
-  category: ProductCategory
+  // category: ProductCategory
+  category: string
   thumbnail: string
   images: string[]
 }
+
+export default ProductCardType
