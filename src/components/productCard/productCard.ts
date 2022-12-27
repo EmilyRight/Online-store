@@ -1,7 +1,8 @@
 import ProductCardType from '../../utils/types/productCard.type'
+import Render from '../abstracts/render'
 import './productCard'
 
-export default class ProductCard {
+export default class ProductCard extends Render {
   private readonly dataObj
   private readonly CLASS_PRODUCT_CARD = 'product-card'
   private readonly CLASS_SLIDER_OUTER = 'product-card__slider'
@@ -29,33 +30,29 @@ export default class ProductCard {
   private readonly CLASS_CART_BTN_TEXT_SMALL = 'cart-btn__text_small'
   private readonly CLASS_STOCK_MORE = 'purchase-block__more'
   private readonly CLASS_ACTIVE = 'active'
+
   constructor (dataObj: ProductCardType) {
+    super()
     this.dataObj = dataObj
   }
 
-  createBlock (element: string, className: string): Element {
-    const elementToCreate = document.createElement(element)
-    elementToCreate.classList.add(className)
-    return elementToCreate
-  }
-
   renderCard (): Element {
-    const card = this.createBlock('div', this.CLASS_PRODUCT_CARD)
-    const sliderOuter = this.createBlock('div', this.CLASS_SLIDER_OUTER)
-    const sliderInner = this.createBlock('div', this.CLASS_SLIDER)
+    const card = super.createBlock('div', this.CLASS_PRODUCT_CARD)
+    const sliderOuter = super.createBlock('div', this.CLASS_SLIDER_OUTER)
+    const sliderInner = super.createBlock('div', this.CLASS_SLIDER)
 
     sliderOuter.append(sliderInner)
 
-    const sliderDotBlock = this.createBlock('div', this.CLASS_SLIDER_DOTS)
+    const sliderDotBlock = super.createBlock('div', this.CLASS_SLIDER_DOTS)
 
     for (let i = 0; i < this.dataObj.images.length; i += 1) {
-      const sliderItem = this.createBlock('div', this.CLASS_SLIDER_ITEM)
-      if (sliderItem instanceof HTMLDivElement) {
-        sliderItem.style.backgroundImage = `url(${this.dataObj.images[i]})`
-      }
-      sliderInner.append(sliderItem)
+      // const sliderItem = super.createBlock('div', this.CLASS_SLIDER_ITEM)
+      // if (sliderItem instanceof HTMLDivElement) {
+      //   sliderItem.style.backgroundImage = `url(${this.dataObj.images[i]})`
+      // }
+      // sliderInner.append(sliderItem)
 
-      const sliderDot = this.createBlock('div', this.CLASS_SLIDER_DOT)
+      const sliderDot = super.createBlock('div', this.CLASS_SLIDER_DOT)
       sliderDot.classList.add(this.CLASS_SLIDER_DOT)
       if (i === 0) {
         sliderDot.classList.add(this.CLASS_ACTIVE)
@@ -63,23 +60,23 @@ export default class ProductCard {
       sliderDotBlock.append(sliderDot)
     }
 
-    const priceBlock = this.createBlock('div', this.CLASS_PRICES)
-    const pricesFlex = this.createBlock('div', this.CLASS_PRICEFLEX)
+    const priceBlock = super.createBlock('div', this.CLASS_PRICES)
+    const pricesFlex = super.createBlock('div', this.CLASS_PRICEFLEX)
     priceBlock.append(pricesFlex)
 
-    const fullPrice = this.createBlock('span', this.CLASS_FULLPRICE)
+    const fullPrice = super.createBlock('span', this.CLASS_FULLPRICE)
     fullPrice.innerHTML = `${this.dataObj.price}$`
-    const discount = this.createBlock('span', this.CLASS_DISCOUNT)
+    const discount = super.createBlock('span', this.CLASS_DISCOUNT)
     discount.innerHTML = `-${this.dataObj.discountPercentage}%`
     pricesFlex.append(fullPrice, discount)
 
-    const ratingBlock = this.createBlock('div', this.CLASS_RATING_BLOCK)
-    const rating = this.createBlock('span', this.CLASS_RATING)
+    const ratingBlock = super.createBlock('div', this.CLASS_RATING_BLOCK)
+    const rating = super.createBlock('span', this.CLASS_RATING)
     rating.innerHTML = this.dataObj.rating.toString()
 
-    const ratingArea = this.createBlock('div', this.CLASS_RATING_AREA)
+    const ratingArea = super.createBlock('div', this.CLASS_RATING_AREA)
     for (let i = 5; i > 0; i--) {
-      const ratingInput = this.createBlock('input', this.CLASS_RATING_INPUT)
+      const ratingInput = super.createBlock('input', this.CLASS_RATING_INPUT)
       ratingInput.id = i.toString()
       const checkedStar = Math.floor(this.dataObj.rating)
       if (ratingInput instanceof HTMLInputElement) {
@@ -89,7 +86,7 @@ export default class ProductCard {
           ratingInput.checked = true
         }
       }
-      const ratinglabel = this.createBlock('label', this.CLASS_RATING_LABEL)
+      const ratinglabel = super.createBlock('label', this.CLASS_RATING_LABEL)
       if (ratinglabel instanceof HTMLLabelElement) {
         ratinglabel.htmlFor = `${i}`
         // TODO - подумать, как красить дробные звезды
@@ -102,27 +99,28 @@ export default class ProductCard {
     }
     ratingBlock.append(rating, ratingArea)
 
-    const cardTitle = this.createBlock('h3', this.CLASS_TITLE)
+    const cardTitle = super.createBlock('h3', this.CLASS_TITLE)
     cardTitle.innerHTML = this.dataObj.title
 
-    const purchaseBlock = this.createBlock('div', this.CLASS_STOCK_BLOCK)
+    const purchaseBlock = super.createBlock('div', this.CLASS_STOCK_BLOCK)
     purchaseBlock.classList.add(this.SUBCLASS_STOCK_BLOCK)
 
-    const stockBlock = this.createBlock('p', this.CLASS_STOCK_TEXT)
+    const stockBlock = super.createBlock('p', this.CLASS_STOCK_TEXT)
     stockBlock.innerHTML = `На складе ${this.dataObj.stock} шт.`
-    const addToCartBtn = this.createBlock('button', this.CLASS_CART_BTN)
+    const addToCartBtn = super.createBlock('button', this.CLASS_CART_BTN)
     addToCartBtn.classList.add(this.SUBCLASS_CART_BTN)
+
     if (addToCartBtn instanceof HTMLButtonElement) {
       addToCartBtn.type = 'button'
-      const btnText = this.createBlock('span', this.CLASS_CART_BTN_TEXT)
+      const btnText = super.createBlock('span', this.CLASS_CART_BTN_TEXT)
       btnText.innerHTML = 'В корзину'
-      const btnTextSmall = this.createBlock('span', this.CLASS_CART_BTN_TEXT_SMALL)
+      const btnTextSmall = super.createBlock('span', this.CLASS_CART_BTN_TEXT_SMALL)
       btnTextSmall.innerHTML = `${0} шт. в корзине`
       addToCartBtn.append(btnText, btnTextSmall)
     }
     purchaseBlock.append(stockBlock, addToCartBtn)
 
-    const stockMore = this.createBlock('p', this.CLASS_STOCK_MORE)
+    const stockMore = super.createBlock('p', this.CLASS_STOCK_MORE)
     stockMore.innerHTML = 'Подробнее ->'
     if (card instanceof HTMLDivElement) {
       card.append(sliderOuter)
@@ -132,7 +130,12 @@ export default class ProductCard {
       card.append(cardTitle)
       card.append(purchaseBlock)
       card.append(stockMore)
+      addToCartBtn.addEventListener('click', this.bla.bind(this))
     }
     return card
+  }
+
+  bla (): void {
+    console.log(this.dataObj)
   }
 }
