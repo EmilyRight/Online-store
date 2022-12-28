@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable no-useless-call */
+import { CartEvents } from '../../utils/enums/cartEvents'
 import Render from '../abstracts/render'
 import './header'
 export default class Header extends Render {
@@ -11,7 +13,12 @@ export default class Header extends Render {
   private readonly CLASS_SEARCH_INPUT = 'search__input'
   private readonly CLASS_SEARCH_INPUT_VISIBLE = 'search__input_visible'
   private readonly CLASS_CART_COUNTER = 'cart__products'
-  private readonly CART_COUNTER = 0
+  private CART_COUNTER = 0
+  constructor () {
+    super()
+    document.addEventListener(CartEvents.ADD_TO_CART, (event) => this.showItemsInCart.call(this, <CustomEvent>event))
+  }
+
   renderHeaderContent (): void {
     super.renderContent(this.CLASS_HEADER, this.CLASS_HEADER)
   }
@@ -47,6 +54,18 @@ export default class Header extends Render {
     this.showNav()
     this.closeNav()
     this.showSearch()
+  }
+
+  showItemsInCart (event: CustomEvent): void {
+    const itemsCounter = document.querySelector('.cart__products')
+    if (event.detail.isInCart === true) {
+      this.CART_COUNTER++
+    } else {
+      this.CART_COUNTER--
+    }
+    if ((itemsCounter != null) && itemsCounter instanceof HTMLSpanElement) {
+      itemsCounter.textContent = this.CART_COUNTER.toString()
+    }
   }
 
   renderHeader (): void {

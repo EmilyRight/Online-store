@@ -1,3 +1,4 @@
+import { CartEvents } from '../../utils/enums/cartEvents'
 import ProductCardType from '../../utils/types/productCard.type'
 import Render from '../abstracts/render'
 import './productCard'
@@ -30,6 +31,8 @@ export default class ProductCard extends Render {
   private readonly CLASS_CART_BTN_TEXT_SMALL = 'cart-btn__text_small'
   private readonly CLASS_STOCK_MORE = 'purchase-block__more'
   private readonly CLASS_ACTIVE = 'active'
+  private _isInCart = false
+  private _cart_counter = 0
 
   constructor (dataObj: ProductCardType) {
     super()
@@ -115,8 +118,11 @@ export default class ProductCard extends Render {
       const btnText = super.createBlock('span', this.CLASS_CART_BTN_TEXT)
       btnText.innerHTML = 'В корзину'
       const btnTextSmall = super.createBlock('span', this.CLASS_CART_BTN_TEXT_SMALL)
-      btnTextSmall.innerHTML = `${0} шт. в корзине`
+      btnTextSmall.innerHTML = `${this._cart_counter} шт. в корзине`
       addToCartBtn.append(btnText, btnTextSmall)
+      if ((btnTextSmall != null) && btnTextSmall instanceof HTMLSpanElement) {
+        addToCartBtn.addEventListener('click', this.clickButtonHandler.bind(this, btnTextSmall))
+      }
     }
     purchaseBlock.append(stockBlock, addToCartBtn)
 
@@ -130,12 +136,25 @@ export default class ProductCard extends Render {
       card.append(cardTitle)
       card.append(purchaseBlock)
       card.append(stockMore)
-      addToCartBtn.addEventListener('click', this.bla.bind(this))
     }
     return card
   }
 
-  bla (): void {
-    console.log(this.dataObj)
+  private clickButtonHandler (itemsInCart: HTMLSpanElement): void {
+    if (this._isInCart) {
+      this._isInCart = false
+      this._cart_counter--
+    } else {
+      this._isInCart = true
+      this._cart_counter++
+    }
+    itemsInCart.innerHTML = `${this._cart_counter} шт. в корзине`
+
+    document.dispatchEvent(new CustomEvent(CartEvents.ADD_TO_CART, {
+      detail: {
+        item: this,
+        isInCart: this._isInCart
+      }
+    }))
   }
 }
