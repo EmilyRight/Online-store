@@ -1,11 +1,73 @@
 .catalog {
   padding-top: 5rem;
-  .wrapper {
-    margin: 0 auto;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  &__title {
+    text-align: center;
+  }
+  .catalog__cards {
     display: flex;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
     gap: 2rem;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    .found {
+      @include text($color-font-main);
+    }
+  }
+
+  &__buttons-block {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  &__btn {
+    height: 4rem;
+    width: 4rem;
+    border: 2px solid rgb(7, 7, 7);
+    border-radius: 5px;
+    padding: 0.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    cursor: pointer;
+    &.active {
+      background-color: $color-blue;
+    }
+  }
+
+  .row-item {
+    width: 100%;
+    height: calc(100% / 5);
+    background-color: rgb(14, 14, 14);
+    border-radius: 2px;
+    align-items: center;
+    justify-content: center;
+  }
+  .block-item {
+    width: calc(100% / 4.5);
+    height: calc(100% / 4.5);
+    background-color: rgb(14, 14, 14);
+    border-radius: 2px;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .catalog {
+    &__title {
+      text-align: left;
+    }
   }
 }

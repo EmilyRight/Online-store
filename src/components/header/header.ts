@@ -57,15 +57,18 @@ export default class Header extends Render {
   }
 
   showItemsInCart (event: CustomEvent): void {
-    const itemsCounter = document.querySelector('.cart__products')
+    const itemsCounterList = document.querySelectorAll('.cart__products')
     if (event.detail.isInCart === true) {
       this.CART_COUNTER++
     } else {
       this.CART_COUNTER--
     }
-    if ((itemsCounter != null) && itemsCounter instanceof HTMLSpanElement) {
-      itemsCounter.textContent = this.CART_COUNTER.toString()
-    }
+
+    itemsCounterList.forEach((item) => {
+      if ((item != null) && item instanceof HTMLSpanElement) {
+        item.textContent = this.CART_COUNTER.toString()
+      }
+    })
   }
 
   renderHeader (): void {

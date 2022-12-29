@@ -33,6 +33,11 @@ main {
   background-color: $color-background-main;
 }
 
+h3 {
+  font-family: "Graphik LCG";
+  font-weight: 700;
+  font-size: 3rem;
+}
 @media screen and (min-width: 767px) {
   .wrapper {
     padding-left: 10vw;

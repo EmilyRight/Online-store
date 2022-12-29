@@ -15,13 +15,7 @@ export default abstract class Render {
 
   handleElementVisibility (elementToShowClass: string, modifier: string): void {
     const elementToShow = document.querySelector('.' + elementToShowClass)
-    console.log('====================================')
-    console.log('null?', this)
-    console.log('====================================')
     if (elementToShow != null) {
-      console.log('====================================')
-      console.log('not null')
-      console.log('====================================')
       if (elementToShow.classList.contains(modifier)) {
         elementToShow.classList.remove(modifier)
       } else {
@@ -34,5 +28,10 @@ export default abstract class Render {
     const elementToCreate = document.createElement(element)
     elementToCreate.classList.add(className)
     return elementToCreate
+  }
+
+  appendBlock (block: Element, element: string, className: string): Element {
+    block.append(this.createBlock(element, className))
+    return block
   }
 }

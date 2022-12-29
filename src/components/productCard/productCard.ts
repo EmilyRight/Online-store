@@ -9,6 +9,7 @@ export default class ProductCard extends Render {
   private readonly CLASS_SLIDER_OUTER = 'product-card__slider'
   private readonly CLASS_SLIDER = 'slider__inner'
   private readonly CLASS_SLIDER_ITEM = 'slider__item'
+  private readonly CLASS_CARD_IMAGE_BLOCK = 'card__image-block'
   private readonly CLASS_SLIDER_DOTS = 'slider__dots'
   private readonly CLASS_SLIDER_DOT = 'slider__dot'
   private readonly CLASS_PRICES = 'product-card__price-block'
@@ -30,10 +31,11 @@ export default class ProductCard extends Render {
   private readonly CLASS_CART_BTN_TEXT = 'cart-btn__text'
   private readonly CLASS_CART_BTN_TEXT_SMALL = 'cart-btn__text_small'
   private readonly CLASS_STOCK_MORE = 'purchase-block__more'
+  private readonly CLASS_INFO_BLOCK = 'card__info-block'
   private readonly CLASS_ACTIVE = 'active'
   private _isInCart = false
   private _cart_counter = 0
-
+  private readonly isColumn = true
   constructor (dataObj: ProductCardType) {
     super()
     this.dataObj = dataObj
@@ -49,11 +51,11 @@ export default class ProductCard extends Render {
     const sliderDotBlock = super.createBlock('div', this.CLASS_SLIDER_DOTS)
 
     for (let i = 0; i < this.dataObj.images.length; i += 1) {
-      // const sliderItem = super.createBlock('div', this.CLASS_SLIDER_ITEM)
-      // if (sliderItem instanceof HTMLDivElement) {
-      //   sliderItem.style.backgroundImage = `url(${this.dataObj.images[i]})`
-      // }
-      // sliderInner.append(sliderItem)
+      const sliderItem = super.createBlock('div', this.CLASS_SLIDER_ITEM)
+      if (sliderItem instanceof HTMLDivElement) {
+        sliderItem.style.backgroundImage = `url(${this.dataObj.images[i]})`
+      }
+      sliderInner.append(sliderItem)
 
       const sliderDot = super.createBlock('div', this.CLASS_SLIDER_DOT)
       sliderDot.classList.add(this.CLASS_SLIDER_DOT)
@@ -62,7 +64,8 @@ export default class ProductCard extends Render {
       }
       sliderDotBlock.append(sliderDot)
     }
-
+    const cardImageBlock = super.createBlock('div', this.CLASS_CARD_IMAGE_BLOCK)
+    cardImageBlock.append(sliderOuter, sliderDotBlock)
     const priceBlock = super.createBlock('div', this.CLASS_PRICES)
     const pricesFlex = super.createBlock('div', this.CLASS_PRICEFLEX)
     priceBlock.append(pricesFlex)
@@ -93,10 +96,6 @@ export default class ProductCard extends Render {
       if (ratinglabel instanceof HTMLLabelElement) {
         ratinglabel.htmlFor = `${i}`
         // TODO - подумать, как красить дробные звезды
-        // const percentsToColor = (this.dataObj.rating - Math.floor(this.dataObj.rating)) * 100
-        // if (i === 5) {
-        //   ratinglabel.style.backgroundImage = `linear-gradient(to right, #ffd700 0%, #ffd700 ${percentsToColor}%, #d3d3d3 ${percentsToColor}%, #d3d3d3 100%)`
-        // }
       }
       ratingArea.append(ratingInput, ratinglabel)
     }
@@ -128,16 +127,27 @@ export default class ProductCard extends Render {
 
     const stockMore = super.createBlock('p', this.CLASS_STOCK_MORE)
     stockMore.innerHTML = 'Подробнее ->'
+
+    const infoBlock = super.createBlock('div', this.CLASS_INFO_BLOCK)
+    infoBlock.append(cardTitle, priceBlock, ratingBlock, purchaseBlock, stockMore)
     if (card instanceof HTMLDivElement) {
-      card.append(sliderOuter)
-      card.append(sliderDotBlock)
-      card.append(priceBlock)
-      card.append(ratingBlock)
-      card.append(cardTitle)
-      card.append(purchaseBlock)
-      card.append(stockMore)
+      card.append(cardImageBlock)
+      card.append(infoBlock)
+      document.addEventListener('isRow', (event) => this.changeCardsMode(event as CustomEvent, card))
     }
+
+    // if (!this.isColumn) {
+    //   card.classList.add('row')
+    // }
     return card
+  }
+
+  private changeCardsMode (event: CustomEvent, card: HTMLDivElement): void {
+    if (event.detail.isRow === true) {
+      card.classList.add('row')
+    } else {
+      card.classList.remove('row')
+    }
   }
 
   private clickButtonHandler (itemsInCart: HTMLSpanElement): void {
@@ -148,6 +158,7 @@ export default class ProductCard extends Render {
       this._isInCart = true
       this._cart_counter++
     }
+
     itemsInCart.innerHTML = `${this._cart_counter} шт. в корзине`
 
     document.dispatchEvent(new CustomEvent(CartEvents.ADD_TO_CART, {

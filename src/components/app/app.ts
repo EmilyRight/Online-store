@@ -16,6 +16,6 @@ export default class App {
   start (): void {
     this.view.renderHeader()
     this.footer.renderFooter()
-    this.catalog.renderCardsArray()
+    this.catalog.init()
   }
 }
