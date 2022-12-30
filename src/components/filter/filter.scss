@@ -1,0 +1,12 @@
+.filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    height: 15%;
+    width: 100%;
+
+    border-radius: 10px;
+    border: 1px solid;
+}
