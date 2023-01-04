@@ -5,6 +5,7 @@ import ProductCard from '../productCard/productCard'
 import './catalog'
 export default class Catalog extends Render {
   productsObj: ProductsDataBase
+  private readonly CLASS_CATALOG = 'catalog'
   private readonly CLASS_WRAPPER = 'wrapper'
   private readonly CLASS_CARDS = 'catalog__cards'
   private readonly CLASS_CATALOG_CONTENT = 'catalog__content'
@@ -17,8 +18,7 @@ export default class Catalog extends Render {
   private readonly CLASS_ROW_ITEM = 'row-item'
   private readonly CLASS_BLOCK_ITEM = 'block-item'
   private readonly CLASS_PRODUCT_CARD = 'product-card'
-  private readonly _wrapper = document.querySelector('.' + this.CLASS_WRAPPER)
-  private buttons: Element[]
+  private readonly _main = document.querySelector('main')
   private cardsCounter = 0
   constructor (productsObj: ProductsDataBase) {
     super()
@@ -32,6 +32,8 @@ export default class Catalog extends Render {
   }
 
   renderCatalogHeader (): void {
+    const catalog = super.createBlock('div', this.CLASS_CATALOG)
+    const wrapper = super.createBlock('div', this.CLASS_WRAPPER)
     const content = super.createBlock('div', this.CLASS_CATALOG_CONTENT)
     const contentTitle = super.createBlock('h3', this.CLASS_CATALOG_TITLE)
     const contentOptions = super.createBlock('div', this.CLASS_CATALOG_OPTIONS)
@@ -42,11 +44,15 @@ export default class Catalog extends Render {
 
     const buttonsBlock = super.createBlock('div', this.CLASS_BUTTONS_BLOCK)
     const catalogBtnRow = super.createBlock('div', 'catalog__btn_row')
+    const catalogBtnBlock = super.createBlock('div', 'catalog__btn_block')
+    catalogBtnBlock.classList.add(this.CLASS_CATALOG_BTN)
+
     catalogBtnRow.classList.add(this.CLASS_CATALOG_BTN)
     // генерируется событие изменения раскладки карточки
     if (catalogBtnRow instanceof HTMLDivElement) {
       catalogBtnRow.addEventListener('click', () => {
-        this.handleShowMode(catalogBtnRow)
+        catalogBtnBlock.classList.remove('active')
+        catalogBtnRow.classList.add('active')
         document.dispatchEvent(new CustomEvent('isRow', {
           detail: {
             isRow: true
@@ -58,12 +64,12 @@ export default class Catalog extends Render {
     for (let i = 0; i < 4; i++) {
       catalogBtnRow.append(super.createBlock('div', this.CLASS_ROW_ITEM))
     }
-    const catalogBtnBlock = super.createBlock('div', 'catalog__btn_block')
-    catalogBtnBlock.classList.add(this.CLASS_CATALOG_BTN)
+
     // генерируется событие изменения раскладки карточки
     if (catalogBtnBlock instanceof HTMLDivElement) {
       catalogBtnBlock.addEventListener('click', () => {
-        this.handleShowMode(catalogBtnBlock)
+        catalogBtnRow.classList.remove('active')
+        catalogBtnBlock.classList.add('active')
         document.dispatchEvent(new CustomEvent('isRow', {
           detail: {
             isRow: false
@@ -79,7 +85,9 @@ export default class Catalog extends Render {
     contentOptions.append(foundProducts, buttonsBlock)
     const contentCards = super.createBlock('div', this.CLASS_CARDS)
     content.append(contentTitle, contentOptions, contentCards)
-    this._wrapper?.append(content)
+    wrapper.append(content)
+    catalog.append(wrapper)
+    this._main?.append(catalog)
   }
 
   renderCardsArray (): void {
@@ -93,30 +101,9 @@ export default class Catalog extends Render {
     }
   }
 
-  handleShowMode (btn: Element): void {
-    if (btn instanceof HTMLDivElement) {
-      if (btn.classList.contains('active')) {
-        btn.classList.remove('active')
-      } else {
-        btn.classList.add('active')
-      }
-    }
-  }
-
   init (): void {
     this.getItemsCount()
     this.renderCatalogHeader()
     this.renderCardsArray()
-    const buttons = Array.from(document.querySelectorAll('.' + this.CLASS_CATALOG_BTN))
-    this.buttons = buttons
-    // this.buttons.addEventListener('click', () => this.handleShowMode(btn))
-    // this.buttons.forEach((btn) => {
-    //   console.log('====================================')
-    //   console.log('2', this.buttons)
-    //   console.log('====================================')
-    //   if (btn instanceof HTMLDivElement) {
-    //     btn.addEventListener('click', () => this.handleShowMode(btn))
-    //   }
-    // })
   }
 }

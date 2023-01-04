@@ -8,12 +8,146 @@
   </head>
   <body>
     <header class="header"></header>
-    <main>
-      <div class="catalog">
+    <main class="main">
+      <!-- <div class="cart">
         <div class="wrapper">
+          <div class="cart__header">
+            <div class="cart__title">Корзина</div>
+            <div class="cart__pagination pagination">
+              <div class="pagination__options">
+                <label for="products-in-cart" class="pagination__label">Показывать по:</label>
+
+                <input
+                  type="number"
+                  id="products-in-cart"
+                  name="products-in-cart"
+                  class="pagination__input"
+                  min="0"
+                  max="100"
+                />
+              </div>
+              <div class="pagination__pages pages">
+
+                <div class="pages__choice">
+                  <button type="button" class="pages__btn pages__btn_left btn_left"><</button>
+                  <div class="pages__number">1</div>
+                  <button type="button" class="pages__btn pages__btn_right btn_right">></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cart__content">
+            <div class="cart__products-block products">
+              <div class="products__item item">
+                <div class="item__number">1</div>
+                <div class="item__content">
+                  <div class="item__img"></div>
+                  <div class="item__info">
+                    <div class="item__title">Iphone</div>
+                    <div class="item__description">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Dicta accusamus libero quibusdam cum aperiam voluptate
+                      officia laborum ea quod? Earum provident reiciendis
+                      asperiores ad ut assumenda hic. Nulla, qui maiores.
+                    </div>
+                    <div class="item__meta">
+                      <div class="item__rating">Рейтинг: 4.33</div>
+                      <div class="item__discount">Скидка: 12%</div>
+                      <div class="item__stock">На складе: 36 in</div>
+                      <div class="item__category">Смартфоны</div>
+                    </div>
+                  </div>
+                  <div class="item__summary">
+
+                    <div class="item__quantity">
+                      <button type="button" class="item__btn_left btn_left">+</button>
+                      <div class="item__quantity-number">1</div>
+                      <button type="button" class="item__btn_right btn_right">-</button>
+                    </div>
+                    <div class="item__sum">2000</div>
+                  </div>
+                </div>
+              </div>
+              <div class="products__item item">
+                <div class="item__number">1</div>
+                <div class="item__content">
+                  <div class="item__img"></div>
+                  <div class="item__info">
+                    <div class="item__title">Iphone</div>
+                    <div class="item__description">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Dicta accusamus libero quibusdam cum aperiam voluptate
+                      officia laborum ea quod? Earum provident reiciendis
+                      asperiores ad ut assumenda hic. Nulla, qui maiores.
+                    </div>
+                    <div class="item__meta">
+                      <div class="item__rating">Рейтинг: 4.33</div>
+                      <div class="item__discount">Скидка: 12%</div>
+                      <div class="item__stock">На складе: 36 in</div>
+                      <div class="item__category">Смартфоны</div>
+                    </div>
+                  </div>
+                  <div class="item__summary">
+
+                    <div class="item__quantity">
+                      <button type="button" class="item__btn_left btn_left">+</button>
+                      <div class="item__quantity-number">1</div>
+                      <button type="button" class="item__btn_right btn_right">-</button>
+                    </div>
+                    <div class="item__sum">2000</div>
+                  </div>
+                </div>
+              </div>
+              <div class="products__item item">
+                <div class="item__number">1</div>
+                <div class="item__content">
+                  <div class="item__img"></div>
+                  <div class="item__info">
+                    <div class="item__title">Iphone</div>
+                    <div class="item__description">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Dicta accusamus libero quibusdam cum aperiam voluptate
+                      officia laborum ea quod? Earum provident reiciendis
+                      asperiores ad ut assumenda hic. Nulla, qui maiores.
+                    </div>
+                    <div class="item__meta">
+                      <div class="item__rating">Рейтинг: 4.33</div>
+                      <div class="item__discount">Скидка: 12%</div>
+                      <div class="item__stock">На складе: 36 in</div>
+                      <div class="item__category">Смартфоны</div>
+                    </div>
+                  </div>
+                  <div class="item__summary">
+
+                    <div class="item__quantity">
+                      <button type="button" class="item__btn_left btn_left">+</button>
+                      <div class="item__quantity-number">1</div>
+                      <button type="button" class="item__btn_right btn_right">-</button>
+                    </div>
+                    <div class="item__sum">2000</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cart__summary summary">
+              <div class="summary__header">Итого</div>
+              <div class="summary__quantity">Количество: 3</div>
+              <div class="summary__discounted-sum">Сумма: 1000 $</div>
+              <div class="summary__sum">Сумма: 2000 $</div>
+              <div class="summary__promo-block promo">
+                <input type="text" placeholder="Введите промокод" class="summary__input">
+                <div class="promo__text">Например, "NEWYEAR2023"</div>
+                <div class="promo__add">
+                  <div class="promo__text_add">Скидка по промокоду: 10%</div>
+                  <button type="button" class="promo__btn">Применить</button>
+                </div>
+              </div>
+              <button type="button" class="promo__btn summary__btn">Оформить заказ</button>
+            </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </main>
     <footer class="footer"></footer>
 
@@ -71,7 +205,7 @@
       </div>
     </template>
     <template id="footer">
-      <div class="footer__container">
+      <div class="footer__container wrapper">
         <div class="footer__body">
           <div class="footer__body-contacts">
             <a class="footer__body-logo" href="#">

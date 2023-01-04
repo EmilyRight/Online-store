@@ -22,7 +22,12 @@ a:visited {
 a:hover {
   text-decoration: none;
 }
-
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .wrapper {
   padding-left: 2rem;
@@ -30,7 +35,10 @@ a:hover {
 }
 
 main {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   background-color: $color-background-main;
+  flex-grow: 1;
 }
 
 h3 {
@@ -49,3 +57,4 @@ h3 {
 @import "../components/footer/footer";
 @import "../components/productCard/productCard";
 @import "../components/catalog/catalog.scss";
+@import "../components/cart/cart.scss";

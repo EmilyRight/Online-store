@@ -2,9 +2,12 @@
 /* eslint-disable no-useless-call */
 import { CartEvents } from '../../utils/enums/cartEvents'
 import Render from '../abstracts/render'
+import Cart from '../cart/cart'
+import CartView from '../views/cart.view'
 import './header'
 export default class Header extends Render {
   private readonly CLASS_HEADER = 'header'
+  private readonly cart
   private readonly CLASS_HEADER_NAV: string = 'header__nav'
   private readonly CLASS_CLOSED = 'closed'
   private readonly CLASS_BURGER_ICON = 'burger__icon'
@@ -17,6 +20,7 @@ export default class Header extends Render {
   constructor () {
     super()
     document.addEventListener(CartEvents.ADD_TO_CART, (event) => this.showItemsInCart.call(this, <CustomEvent>event))
+    this.cart = new Cart()
   }
 
   renderHeaderContent (): void {
@@ -71,9 +75,23 @@ export default class Header extends Render {
     })
   }
 
+  showCart (): void {
+    const itemsCounterList = document.querySelectorAll('.header__cart')
+    const main = document.querySelector('main')
+    console.log('====================================')
+    console.log(itemsCounterList)
+    console.log('====================================')
+    itemsCounterList.forEach((item) => {
+      item.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent(CartEvents.OPEN_CART))
+      })
+    })
+  }
+
   renderHeader (): void {
     this.renderHeaderContent()
     this.renderNavigation()
     this.handleNav()
+    this.showCart()
   }
 }

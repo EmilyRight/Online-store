@@ -50,10 +50,10 @@ export default class ProductCard extends Render {
 
     const sliderDotBlock = super.createBlock('div', this.CLASS_SLIDER_DOTS)
 
-    for (let i = 0; i < this.dataObj.images.length; i += 1) {
+    for (let i = 0; i < this.dataObj?.images?.length; i += 1) {
       const sliderItem = super.createBlock('div', this.CLASS_SLIDER_ITEM)
       if (sliderItem instanceof HTMLDivElement) {
-        sliderItem.style.backgroundImage = `url(${this.dataObj.images[i]})`
+        // sliderItem.style.backgroundImage = `url(${this.dataObj?.images[i]})`
       }
       sliderInner.append(sliderItem)
 
@@ -163,7 +163,7 @@ export default class ProductCard extends Render {
 
     document.dispatchEvent(new CustomEvent(CartEvents.ADD_TO_CART, {
       detail: {
-        item: this,
+        item: this.dataObj,
         isInCart: this._isInCart
       }
     }))
