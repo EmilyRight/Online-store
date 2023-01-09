@@ -1,6 +1,7 @@
 import { CartEvents } from '../../utils/enums/cartEvents'
 import ProductCardType from '../../utils/types/productCard.type'
 import Render from '../abstracts/render'
+// import { AppEvents } from '../../utils/enums/app-events'
 import './productCard'
 
 export default class ProductCard extends Render {
@@ -36,9 +37,12 @@ export default class ProductCard extends Render {
   private _isInCart = false
   private _cart_counter = 0
   private readonly isColumn = true
+  // private _isShow = true
   constructor (dataObj: ProductCardType) {
     super()
     this.dataObj = dataObj
+    this.renderCard()
+    // document.addEventListener(AppEvents.EVENT_FILTER, (event) => this.changeFilters.call(this, <CustomEvent>event))
   }
 
   renderCard (): Element {
@@ -171,4 +175,20 @@ export default class ProductCard extends Render {
       }
     }))
   }
+  // changeFilters (event: CustomEvent): void {
+  //   const eventTitle = event.detail?.title.toString().toLowerCase()
+  //   const resultTitle = this.dataObj.title.toLowerCase().includes(eventTitle)
+
+  //   if (this._isShow) {
+  //     if (!resultTitle) {
+  //       card.style.display = 'none'
+  //       this._isShow = false
+  //     }
+  //   } else {
+  //     if (resultTitle) {
+  //       card.style.display = 'flex'
+  //       this._isShow = true
+  //     }
+  //   }
+  // }
 }
