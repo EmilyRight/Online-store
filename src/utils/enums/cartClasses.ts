@@ -1,5 +1,8 @@
 export const enum CartClasses {
   CLASS_CART = 'cart',
+  CLASS_CART_EMPTY = 'cart-empty',
+  CLASS_CART_EMPTY_TEXT = 'cart-empty__text',
+  CLASS_CART_EMPTY_BTN = 'cart-empty__btn',
   CLASS_WRAPPER = 'wrapper',
   CLASS_CART_HEADER = 'cart__header',
   CLASS_CART_TITLE = 'cart__title',

@@ -46,7 +46,7 @@ export default class Catalog extends Render {
     const catalogBtnRow = super.createBlock('div', 'catalog__btn_row')
     const catalogBtnBlock = super.createBlock('div', 'catalog__btn_block')
     catalogBtnBlock.classList.add(this.CLASS_CATALOG_BTN)
-
+    catalogBtnBlock.classList.add('active')
     catalogBtnRow.classList.add(this.CLASS_CATALOG_BTN)
     // генерируется событие изменения раскладки карточки
     if (catalogBtnRow instanceof HTMLDivElement) {

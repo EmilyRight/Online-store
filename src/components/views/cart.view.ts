@@ -1,14 +1,11 @@
 import { CartClasses } from '../../utils/enums/cartClasses'
 import Render from '../abstracts/render'
-
+import productsData from '../../products'
+import Catalog from '../catalog/catalog'
+import { CartEvents } from '../../utils/enums/cartEvents'
 export default class CartView extends Render {
   private readonly classes: CartClasses
-  // private readonly itemsInCart
-  // constructor (array: ProductCardType[]) {
-  //   super()
-  //   this.itemsInCart = array
-  // }
-
+  private isPromoApplied = false
   renderCart (): Element {
     const cart = super.createBlock('div', CartClasses.CLASS_CART)
 
@@ -52,10 +49,7 @@ export default class CartView extends Render {
 
     const cartContent = super.createBlock('div', CartClasses.CLASS_CART_CONTENT)
     const cartProductsList = super.createBlock('div', CartClasses.CLASS_CART_PRODUCTS_BLOCK)
-    // for (let i = 0; i < this.itemsInCart.length; i++) {
-    //   const item = new ProductInCart(this.itemsInCart[i])
-    //   cartProductsList.append(item.renderProductInCart())
-    // }
+
     cartProductsList.classList.add(CartClasses.CLASS_PRODUCTS) //!
 
     const cartSummary = super.createBlock('div', CartClasses.CLASS_CART_SUMMARY)
@@ -66,18 +60,22 @@ export default class CartView extends Render {
     const summaryDiscounted = super.createBlock('div', CartClasses.CLASS_SUMMARY_DISCOUNTED_SUM)
     const summarySum = super.createBlock('div', CartClasses.CLASS_SUMMARY_SUM)
     const summaryPromoBlock = super.createBlock('div', CartClasses.CLASS_SUMMARY_PROMO_BLOCK)
+    summaryPromoBlock.classList.add('promo')
     const summaryInput = super.createBlock('input', CartClasses.CLASS_SUMMARY_INPUT)
     if (summaryInput instanceof HTMLInputElement) {
       summaryInput.type = 'text'
       summaryInput.setAttribute('placeholder', 'Введите промокод')
+      summaryInput.addEventListener('input', this.showPromocode.bind(this))
     }
     const promoText = super.createBlock('div', CartClasses.CLASS_PROMO_TEXT)
-    promoText.innerHTML = 'Например, "NEWYEAR2023'
+    promoText.innerHTML = 'Например, "NY2023'
     const promoAdd = super.createBlock('div', CartClasses.CLASS_PROMO_ADD)
+
     const promoTextAdd = super.createBlock('div', CartClasses.CLASS_PROMO_TEXT_ADD)
     promoTextAdd.innerHTML = 'Скидка по промокоду: 10%'
     const promoBtn = super.createBlock('button', CartClasses.CLASS_PROMO_BTN)
     promoBtn.innerHTML = 'Применить'
+    promoBtn.addEventListener('click', () => this.applyPromocode())
     const summaryBtn = super.createBlock('button', CartClasses.CLASS_SUMMARY_BTN_BUY)
     if (summaryBtn instanceof HTMLButtonElement) {
       summaryBtn.type = 'button'
@@ -92,5 +90,72 @@ export default class CartView extends Render {
 
     cart.append(wrapper)
     return cart
+  }
+
+  renderEmptyCart (): Element {
+    const cart = super.createBlock('div', CartClasses.CLASS_CART)
+    const wrapper = super.createBlock('div', CartClasses.CLASS_WRAPPER)
+    const cartEmpty = super.createBlock('div', CartClasses.CLASS_CART_EMPTY)
+    const cartEmptyText = super.createBlock('div', CartClasses.CLASS_CART_EMPTY_TEXT)
+    const cartEmptyBtn = super.createBlock('button', CartClasses.CLASS_CART_EMPTY_BTN)
+    cartEmptyText.innerHTML = 'Корзина пуста'
+    cartEmptyBtn.innerHTML = 'Назад к покупкам'
+    cartEmptyBtn.addEventListener('click', () => this.handleBackBtn())
+    cartEmpty.append(cartEmptyText, cartEmptyBtn)
+    wrapper.append(cartEmpty)
+    cart.append(wrapper)
+    return cart
+  }
+
+  handleBackBtn (): void {
+    const catalog = new Catalog(productsData)
+    const cart = document.querySelector('.' + CartClasses.CLASS_CART)
+    cart?.remove()
+    catalog.init()
+  }
+
+  showPromocode (): void {
+    const input = document.querySelector('.' + CartClasses.CLASS_SUMMARY_INPUT)
+    const addBlock = document.querySelector('.' + CartClasses.CLASS_PROMO_ADD)
+    if (input !== null &&
+      input instanceof HTMLInputElement &&
+      input.value === 'NY2023' && addBlock instanceof HTMLDivElement) {
+      if (!this.isPromoApplied) {
+        addBlock.style.display = 'flex'
+      } else {
+        addBlock.style.display = 'none'
+        input.value = ''
+      }
+    }
+  }
+
+  applyPromocode (): void {
+    const discountedSum = document.querySelector('.' + CartClasses.CLASS_SUMMARY_DISCOUNTED_SUM)
+    const totalSum = document.querySelector('.' + CartClasses.CLASS_SUMMARY_SUM)
+    const sum = Number((totalSum?.innerHTML)?.match(/\d+/))
+    if (!this.isPromoApplied) {
+      this.isPromoApplied = true
+      if (discountedSum !== null && discountedSum instanceof HTMLDivElement &&
+        totalSum !== null && totalSum instanceof HTMLDivElement) {
+        discountedSum.style.display = 'block'
+        discountedSum.innerHTML = `Сумма: ${sum}$`
+        totalSum.innerHTML = `Сумма: ${sum - sum * 0.1}$`
+      }
+    } else {
+      this.isPromoApplied = false
+
+      if (discountedSum !== null && discountedSum instanceof HTMLDivElement &&
+        totalSum !== null && totalSum instanceof HTMLDivElement) {
+        discountedSum.style.display = 'none'
+        totalSum.innerHTML = `Сумма: ${sum}$`
+      }
+    }
+    this.showPromocode()
+    document.dispatchEvent(new CustomEvent(CartEvents.APPLY_PROMO, {
+      detail: {
+        isPromoApplied: this.isPromoApplied,
+        discount: 10
+      }
+    }))
   }
 }

@@ -3,7 +3,6 @@
 import { CartEvents } from '../../utils/enums/cartEvents'
 import Render from '../abstracts/render'
 import Cart from '../cart/cart'
-import CartView from '../views/cart.view'
 import './header'
 export default class Header extends Render {
   private readonly CLASS_HEADER = 'header'
@@ -21,6 +20,7 @@ export default class Header extends Render {
     super()
     document.addEventListener(CartEvents.ADD_TO_CART, (event) => this.showItemsInCart.call(this, <CustomEvent>event))
     this.cart = new Cart()
+    document.addEventListener(CartEvents.CHANGE_QUANTITY, (event) => this.listenQuantityChange.call(this, <CustomEvent>event))
   }
 
   renderHeaderContent (): void {
@@ -77,14 +77,27 @@ export default class Header extends Render {
 
   showCart (): void {
     const itemsCounterList = document.querySelectorAll('.header__cart')
-    const main = document.querySelector('main')
-    console.log('====================================')
-    console.log(itemsCounterList)
-    console.log('====================================')
     itemsCounterList.forEach((item) => {
       item.addEventListener('click', () => {
         document.dispatchEvent(new CustomEvent(CartEvents.OPEN_CART))
       })
+    })
+  }
+
+  listenQuantityChange (event: CustomEvent): void {
+    const itemsCounterList = document.querySelectorAll('.cart__products')
+
+    const customEvent = event
+    if (customEvent.detail.change === 'increase') {
+      this.CART_COUNTER++
+    } else {
+      this.CART_COUNTER--
+    }
+
+    itemsCounterList.forEach((item) => {
+      if ((item != null) && item instanceof HTMLSpanElement) {
+        item.textContent = this.CART_COUNTER.toString()
+      }
     })
   }
 

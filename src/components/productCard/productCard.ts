@@ -119,8 +119,9 @@ export default class ProductCard extends Render {
       const btnTextSmall = super.createBlock('span', this.CLASS_CART_BTN_TEXT_SMALL)
       btnTextSmall.innerHTML = `${this._cart_counter} шт. в корзине`
       addToCartBtn.append(btnText, btnTextSmall)
-      if ((btnTextSmall != null) && btnTextSmall instanceof HTMLSpanElement) {
-        addToCartBtn.addEventListener('click', this.clickButtonHandler.bind(this, btnTextSmall))
+      if ((btnTextSmall != null) && btnTextSmall instanceof HTMLSpanElement &&
+      btnText != null && btnText instanceof HTMLSpanElement) {
+        addToCartBtn.addEventListener('click', this.clickButtonHandler.bind(this, btnTextSmall, btnText))
       }
     }
     purchaseBlock.append(stockBlock, addToCartBtn)
@@ -150,21 +151,23 @@ export default class ProductCard extends Render {
     }
   }
 
-  private clickButtonHandler (itemsInCart: HTMLSpanElement): void {
+  private clickButtonHandler (itemsInCart: HTMLSpanElement, mainText: HTMLSpanElement): void {
     if (this._isInCart) {
       this._isInCart = false
+      mainText.innerHTML = 'В корзину'
       this._cart_counter--
     } else {
       this._isInCart = true
+      mainText.innerHTML = 'Удалить'
       this._cart_counter++
     }
 
     itemsInCart.innerHTML = `${this._cart_counter} шт. в корзине`
-
     document.dispatchEvent(new CustomEvent(CartEvents.ADD_TO_CART, {
       detail: {
         item: this.dataObj,
-        isInCart: this._isInCart
+        isInCart: this._isInCart,
+        cartCounter: this._cart_counter
       }
     }))
   }

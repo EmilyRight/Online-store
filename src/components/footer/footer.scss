@@ -18,10 +18,15 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  justify-content: center;
   gap: 1.25rem;
+  @media screen and (min-width: 600px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 .footer .social__item {
@@ -33,11 +38,6 @@
 }
 
 .footer__body {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 30% 1fr 1fr 1fr;
-  grid-template-columns: 30% 1fr 1fr 1fr;
-  gap: 1.875rem;
   line-height: 1.5;
   border-bottom: 0.125rem solid rgba(17, 17, 17, 0.1);
   @include text($color-font-main);
