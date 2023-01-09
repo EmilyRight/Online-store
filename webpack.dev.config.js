@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     port: '3000',
-    static: path.resolve(__dirname, '../dist'),
+    static: path.resolve(__dirname, './dist'),
     open: true,
     hot: true,
     liveReload: true

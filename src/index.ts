@@ -1,4 +1,6 @@
-const a: number = 2
-console.log('====================================')
-console.log(a)
-console.log('====================================')
+import './styles/app.scss'
+
+import App from './components/app/app'
+
+const app = new App()
+app.start()

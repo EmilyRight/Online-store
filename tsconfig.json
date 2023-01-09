@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
       "allowSyntheticDefaultImports": true,
+      "strictPropertyInitialization": false,
       "strict": true,
       "noImplicitAny": true,
       "target": "ES2021",
