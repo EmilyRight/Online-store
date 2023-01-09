@@ -37,10 +37,14 @@ export default class ProductCard extends Render {
   private _isInCart = false
   private _cart_counter = 0
   private readonly isColumn = true
+  private sliderSize: Element
+  private slider: Element
+  private readonly dots: Element[]
   // private _isShow = true
   constructor (dataObj: ProductCardType) {
     super()
     this.dataObj = dataObj
+    this.dots = []
     this.renderCard()
     // document.addEventListener(AppEvents.EVENT_FILTER, (event) => this.changeFilters.call(this, <CustomEvent>event))
   }
@@ -48,8 +52,9 @@ export default class ProductCard extends Render {
   renderCard (): Element {
     const card = super.createBlock('div', this.CLASS_PRODUCT_CARD)
     const sliderOuter = super.createBlock('div', this.CLASS_SLIDER_OUTER)
+    this.sliderSize = sliderOuter
     const sliderInner = super.createBlock('div', this.CLASS_SLIDER)
-
+    this.slider = sliderInner
     sliderOuter.append(sliderInner)
 
     const sliderDotBlock = super.createBlock('div', this.CLASS_SLIDER_DOTS)
@@ -57,16 +62,22 @@ export default class ProductCard extends Render {
     for (let i = 0; i < this.dataObj?.images?.length; i += 1) {
       const sliderItem = super.createBlock('div', this.CLASS_SLIDER_ITEM)
       if (sliderItem instanceof HTMLDivElement) {
-        // sliderItem.style.backgroundImage = `url(${this.dataObj?.images[i]})`
+        sliderItem.style.backgroundImage = `url(${this.dataObj?.images[i]})`
       }
       sliderInner.append(sliderItem)
-
-      const sliderDot = super.createBlock('div', this.CLASS_SLIDER_DOT)
-      sliderDot.classList.add(this.CLASS_SLIDER_DOT)
-      if (i === 0) {
-        sliderDot.classList.add(this.CLASS_ACTIVE)
+      if (this.dataObj?.images?.length > 1) {
+        const sliderDot = super.createBlock('div', this.CLASS_SLIDER_DOT)
+        sliderDot.classList.add(this.CLASS_SLIDER_DOT)
+        sliderDot.addEventListener('click', (event) => {
+          this.setImages(i)
+          this.setActiveDot(event.target)
+        })
+        if (i === 0) {
+          sliderDot.classList.add(this.CLASS_ACTIVE)
+        }
+        this.dots.push(sliderDot)
+        sliderDotBlock.append(sliderDot)
       }
-      sliderDotBlock.append(sliderDot)
     }
     const cardImageBlock = super.createBlock('div', this.CLASS_CARD_IMAGE_BLOCK)
     cardImageBlock.append(sliderOuter, sliderDotBlock)
@@ -140,10 +151,6 @@ export default class ProductCard extends Render {
       card.append(infoBlock)
       document.addEventListener('isRow', (event) => this.changeCardsMode(event as CustomEvent, card))
     }
-
-    // if (!this.isColumn) {
-    //   card.classList.add('row')
-    // }
     return card
   }
 
@@ -175,6 +182,27 @@ export default class ProductCard extends Render {
       }
     }))
   }
+
+  setImages (i: number): void {
+    const slideSize = this.sliderSize?.clientWidth
+    if (this.slider !== null && this.slider instanceof HTMLDivElement) {
+      this.slider.style.left = `-${i * slideSize}px`
+      console.log(slideSize, i, this.slider)
+    }
+  }
+
+  setActiveDot (dot: EventTarget | null): void {
+    this.dots.forEach((item) => {
+      if (item.classList.contains('active')) {
+        item.classList.remove('active')
+      }
+
+      if (dot !== null && dot instanceof HTMLDivElement) {
+        dot.classList.add('active')
+      }
+    })
+  }
+
   // changeFilters (event: CustomEvent): void {
   //   const eventTitle = event.detail?.title.toString().toLowerCase()
   //   const resultTitle = this.dataObj.title.toLowerCase().includes(eventTitle)
