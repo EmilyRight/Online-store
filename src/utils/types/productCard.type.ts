@@ -9,7 +9,6 @@ interface ProductCardType {
   rating: number
   stock: number
   brand: string
-  // category: ProductCategory
   category: string
   thumbnail: string
   images: string[]

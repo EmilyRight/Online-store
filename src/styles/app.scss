@@ -22,7 +22,12 @@ a:visited {
 a:hover {
   text-decoration: none;
 }
-
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .wrapper {
   padding-left: 2rem;
@@ -30,9 +35,17 @@ a:hover {
 }
 
 main {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   background-color: $color-background-main;
+  flex-grow: 1;
 }
 
+h3 {
+  font-family: "Graphik LCG";
+  font-weight: 700;
+  font-size: 3rem;
+}
 @media screen and (min-width: 767px) {
   .wrapper {
     padding-left: 10vw;
@@ -44,3 +57,5 @@ main {
 @import "../components/footer/footer";
 @import "../components/productCard/productCard";
 @import "../components/catalog/catalog.scss";
+@import "../components/cart/cart.scss";
+@import "../components/filter/filter.scss"

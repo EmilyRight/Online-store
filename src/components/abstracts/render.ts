@@ -13,8 +13,8 @@ export default abstract class Render {
     return blockToInsert
   }
 
-  handleElementVisibility (elementToShow: Element, elementToShowClass: string, modifier: string): void {
-    // const elementToShow = document.querySelector('.' + elementToShowClass)
+  handleElementVisibility (elementToShowClass: string, modifier: string): void {
+    const elementToShow = document.querySelector('.' + elementToShowClass)
     if (elementToShow != null) {
       if (elementToShow.classList.contains(modifier)) {
         elementToShow.classList.remove(modifier)
@@ -22,5 +22,16 @@ export default abstract class Render {
         elementToShow.classList.add(modifier)
       }
     }
+  }
+
+  createBlock (element: string, className: string): Element {
+    const elementToCreate = document.createElement(element)
+    elementToCreate.classList.add(className)
+    return elementToCreate
+  }
+
+  appendBlock (block: Element, element: string, className: string): Element {
+    block.append(this.createBlock(element, className))
+    return block
   }
 }

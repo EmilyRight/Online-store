@@ -8,10 +8,16 @@
   </head>
   <body>
     <header class="header"></header>
+    <!-- <main class="main"></main>
+    <footer class="footer"></footer> -->
     <main>
+      <div class="filters">
+        <div class="wrapper">
+        </div>
+      </div>
       <div class="catalog">
         <div class="wrapper">
-          
+
         </div>
       </div>
     </main>
@@ -85,57 +91,6 @@
 					</div>
 					<div class="footer__box" data-da=".footer__wrapper,768"></div>
 				</div>
-				<div class="footer__body-products">
-					<h4 class="footer__body-title">Продукция</h4>
-					<ul class="footer__body-list">
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Каталог</a>
-						</li>
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Цифровые пианино</a>
-						</li>
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Синтезаторы</a>
-						</li>
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Акустические пианино</a>
-						</li>
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Аксессуары</a>
-						</li>
-					</ul>
-				</div>
-				<div class="footer__body-work">
-					<h4 class="footer__body-title">Как мы работаем</h4>
-					<ul class="footer__body-list">
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Доставка</a>
-						</li>
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Оплата</a>
-						</li>
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Гарантии</a>
-						</li>
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Правила возврата и замены</a>
-						</li>
-					</ul>
-				</div>
-				<div class="footer__body-other">
-					<h4 class="footer__body-title">Прочее</h4>
-					<ul class="footer__body-list">
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Акции</a>
-						</li>
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">О нас</a>
-						</li>
-						<li class="footer__body-item">
-							<a class="footer__body-link" href="#">Услуги</a>
-						</li>
-					</ul>
-				</div>
 			</div>
 			<div class="footer__bottom" data-da=".footer__box,1024">
 				<div class="footer__politics">
@@ -170,27 +125,54 @@
         </div>
         <div class="product-card__price-block">
           <div class="product-card__price">
-            <span class="product-card__price_full"
-              >2000
-            </span>
-            <span class="product-card__price_discounted"
-              ></span
-            >
+            <span class="product-card__price_full">2000 </span>
+            <span class="product-card__price_discounted"></span>
           </div>
         </div>
         <div class="product-card__rating-block">
           <span class="product-card__rating">4.65</span>
           <div class="product-card__rating-area">
-            <input type="radio" id="5" name="rating" class='rating__input'value="5" />
-            <label for="5" title="Оценка «5»" class='rating__label'></label>
-            <input type="radio" id="4" name="rating" value="4" class='rating__input' checked/>
-            <label for="4" title="Оценка «4»" class='rating__label'></label>
-            <input type="radio" id="3" name="rating" value="3" class='rating__input'/>
-            <label for="3" title="Оценка «3»" class='rating__label'></label>
-            <input type="radio" id="2" name="rating" value="2" class='rating__input'/>
-            <label for="2" title="Оценка «2»" class='rating__label'></label>
-            <input type="radio" id="1" name="rating" value="1" class='rating__input'/>
-            <label for="1" title="Оценка «1»" class='rating__label'></label>
+            <input
+              type="radio"
+              id="5"
+              name="rating"
+              class="rating__input"
+              value="5"
+            />
+            <label for="5" title="Оценка «5»" class="rating__label"></label>
+            <input
+              type="radio"
+              id="4"
+              name="rating"
+              value="4"
+              class="rating__input"
+              checked
+            />
+            <label for="4" title="Оценка «4»" class="rating__label"></label>
+            <input
+              type="radio"
+              id="3"
+              name="rating"
+              value="3"
+              class="rating__input"
+            />
+            <label for="3" title="Оценка «3»" class="rating__label"></label>
+            <input
+              type="radio"
+              id="2"
+              name="rating"
+              value="2"
+              class="rating__input"
+            />
+            <label for="2" title="Оценка «2»" class="rating__label"></label>
+            <input
+              type="radio"
+              id="1"
+              name="rating"
+              value="1"
+              class="rating__input"
+            />
+            <label for="1" title="Оценка «1»" class="rating__label"></label>
           </div>
         </div>
         <h3 class="product__title">Iphone 9</h3>
@@ -209,6 +191,55 @@
           </button>
         </div>
       </div>
+    </template>
+    <template id="filters">
+      <!-- <div class="filters__search-wrap search-filter">
+        <span class="search-filter__label">Поиск</span>
+        <form class="search-filter__form">
+          <input class="search-filter__input" type="search"
+                 placeholder="Искать здесь..." autocomplete="off"
+                 autofocus>
+        </form>
+      </div> -->
+      <div class="filters__sort-search">
+      <div class="filters__sort-wrap sort-filter">
+        <span class="sort-filter__label">Сортировать</span>
+        <select class="sort-filter__select">
+          <option value="sort-name-increase">по названию от «А» до «Я»</option>
+          <option value="sort-name-decrease">по названию от «Я» до «А»</option>
+          <option value="sort-price-increase">по цене по возрастанию</option>
+          <option value="sort-price-decrease">по цене по убыванию</option>
+          <option value="sort-year-increase">по остатку на складе по возрастанию</option>
+          <option value="sort-year-decrease">по остатку на складе убыванию</option>
+        </select>
+      </div>
+      <div class="filters__type-wrap  type-filter">
+        <span class=" type-filter__label">Тип товара</span>
+        <div class="type-filter__btn-contain">
+          <button class="type-filter__btn" data-type-filter="Одежда">Одежда</button>
+          <button class="type-filter__btn" data-type-filter="Техника">Техника</button>
+        </div>
+      </div>
+      <div class="filters__brand-wrap  brand-filter">
+        <span class=" brand-filter__label">Марка товара</span>
+        <div class="type-filter__btn-contain">
+          <button class="type-filter__btn" data-type-filter="Одежда">Apple</button>
+          <button class="type-filter__btn" data-type-filter="Техника">Samsung</button>
+        </div>
+      </div>
+      <div class="filters__price-wrap price-filter">
+        <span class="price-filter__label">Минимальная стоимость</span>
+        <div id="price-filter-range" class="range-contain__range"></div>
+      </div>
+      <div class="filters__stock-wrap stock-filter">
+        <span class="stock-filter__label">Количество на складе</span>
+        <div id="stock-filter-range" class="range-contain__range"></div>
+      </div>
+      <div class="filters__reset-btn-contain">
+        <button class="filters__reset-filter-btn filter-btn">Сбросить фильтры</button>
+        <button class="filters__reset-settings-btn filter-btn">Сбросить настройки</button>
+      </div>
+    </div>
     </template>
   </body>
 </html>
