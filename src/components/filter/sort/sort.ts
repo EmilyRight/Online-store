@@ -35,7 +35,15 @@ export default class CatalogSort {
     return this.cardArray.sort((a, b) => +a.price! - +b.price!)
   }
 
-  sortManaMin (): FilterObject[] {
+  sortPriceMin (): FilterObject[] {
     return this.cardArray.sort((a, b) => +b.price! - +a.price!)
+  }
+
+  sortStockMax (): FilterObject[] {
+    return this.cardArray.sort((a, b) => +a.stock! - +b.stock!)
+  }
+
+  sortStockMin (): FilterObject[] {
+    return this.cardArray.sort((a, b) => +b.stock! - +a.stock!)
   }
 }

@@ -1,4 +1,5 @@
 import ProductCardType from '../../utils/types/productCard.type'
+// import { AppEvents } from '../../utils/enums/app-events'
 import './productCard'
 
 export default class ProductCard {
@@ -29,8 +30,11 @@ export default class ProductCard {
   private readonly CLASS_CART_BTN_TEXT_SMALL = 'cart-btn__text_small'
   private readonly CLASS_STOCK_MORE = 'purchase-block__more'
   private readonly CLASS_ACTIVE = 'active'
+  // private _isShow = true
   constructor (dataObj: ProductCardType) {
     this.dataObj = dataObj
+    this.renderCard()
+    // document.addEventListener(AppEvents.EVENT_FILTER, (event) => this.changeFilters.call(this, <CustomEvent>event))
   }
 
   createBlock (element: string, className: string): Element {
@@ -135,4 +139,21 @@ export default class ProductCard {
     }
     return card
   }
+
+  // changeFilters (event: CustomEvent): void {
+  //   const eventTitle = event.detail?.title.toString().toLowerCase()
+  //   const resultTitle = this.dataObj.title.toLowerCase().includes(eventTitle)
+
+  //   if (this._isShow) {
+  //     if (!resultTitle) {
+  //       card.style.display = 'none'
+  //       this._isShow = false
+  //     }
+  //   } else {
+  //     if (resultTitle) {
+  //       card.style.display = 'flex'
+  //       this._isShow = true
+  //     }
+  //   }
+  // }
 }

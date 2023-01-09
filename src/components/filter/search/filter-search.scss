@@ -1,7 +1,15 @@
-.filter__container_row {
-    display: flex;
-    flex-direction: row;
-
-    height: max-content;
-    width: 40%;
-}
+.filters {
+    padding-top: 5rem;
+    .wrapper{
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    input{
+        width: 200px;
+        height: 30px;
+        font-size: large;
+        background-color: #e5e5e5;
+    }
+} 

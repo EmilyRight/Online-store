@@ -5,9 +5,9 @@ import { AppTag } from '../../../utils/enums/app-tag'
 import '../search/filter-search.scss'
 
 export default class FilterSearch {
-  private readonly TEXT_FILTER = 'Введите строку'
   private readonly _component = document.createElement(AppTag.DIV)
   private readonly _input = document.createElement(AppTag.INPUT)
+  private readonly WRAPPER = 'filters .wrapper'
 
   constructor () {
     this.createElement()
@@ -23,10 +23,11 @@ export default class FilterSearch {
     return this._component;
   }
   private createElement() {
+    const wrapper = document.querySelector('.' + this.WRAPPER) as HTMLElement;
     this._component.classList.add(FilterCssClass.FILTER_CONTAINER_ROW);
-    const text = document.createElement(AppTag.LABEL);
-    text.textContent = this.TEXT_FILTER;     
+    const text = document.createElement(AppTag.LABEL);  
     this._component.append(text);
     this._component.append(this._input);
+    wrapper.append(this._component);
   }
 }

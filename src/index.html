@@ -9,6 +9,10 @@
   <body>
     <header class="header"></header>
     <main>
+      <div class="filters">
+        <div class="wrapper">
+        </div>
+      </div>
       <div class="catalog">
         <div class="wrapper">
           
@@ -209,6 +213,55 @@
           </button>
         </div>
       </div>
+    </template>
+    <template id="filters">
+      <!-- <div class="filters__search-wrap search-filter">
+        <span class="search-filter__label">Поиск</span>
+        <form class="search-filter__form">
+          <input class="search-filter__input" type="search" 
+                 placeholder="Искать здесь..." autocomplete="off" 
+                 autofocus>
+        </form>
+      </div> -->
+      <div class="filters__sort-search">
+      <div class="filters__sort-wrap sort-filter">
+        <span class="sort-filter__label">Сортировать</span>
+        <select class="sort-filter__select">
+          <option value="sort-name-increase">по названию от «А» до «Я»</option>
+          <option value="sort-name-decrease">по названию от «Я» до «А»</option>
+          <option value="sort-price-increase">по цене по возрастанию</option>
+          <option value="sort-price-decrease">по цене по убыванию</option>
+          <option value="sort-year-increase">по остатку на складе по возрастанию</option>
+          <option value="sort-year-decrease">по остатку на складе убыванию</option>
+        </select>
+      </div>
+      <div class="filters__type-wrap  type-filter">
+        <span class=" type-filter__label">Тип товара</span>
+        <div class="type-filter__btn-contain">
+          <button class="type-filter__btn" data-type-filter="Одежда">Одежда</button>
+          <button class="type-filter__btn" data-type-filter="Техника">Техника</button>
+        </div>
+      </div>
+      <div class="filters__brand-wrap  brand-filter">
+        <span class=" brand-filter__label">Марка товара</span>
+        <div class="type-filter__btn-contain">
+          <button class="type-filter__btn" data-type-filter="Одежда">Apple</button>
+          <button class="type-filter__btn" data-type-filter="Техника">Samsung</button>
+        </div>
+      </div>
+      <div class="filters__price-wrap price-filter">
+        <span class="price-filter__label">Минимальная стоимость</span>
+        <div id="price-filter-range" class="range-contain__range"></div>
+      </div>
+      <div class="filters__stock-wrap stock-filter">
+        <span class="stock-filter__label">Количество на складе</span>
+        <div id="stock-filter-range" class="range-contain__range"></div>
+      </div>
+      <div class="filters__reset-btn-contain">
+        <button class="filters__reset-filter-btn">Сбросить фильтры</button>
+        <button class="filters__reset-settings-btn">Сбросить настройки</button>
+      </div>
+    </div>
     </template>
   </body>
 </html>

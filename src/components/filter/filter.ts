@@ -1,20 +1,20 @@
 /* eslint-disable */
 import { AppEvents } from '../../utils/enums/app-events'
 import FilterSearch from './search/filter-search'
-
-export default class FilterAccumulator {
+import Render from '../abstracts/render';
+import './filter'
+export default class FilterAccumulator extends Render {
   private _filterSearch = '';
-  private _filterPrice = 2000;
+  private readonly ID_CLASS_FILTERS = 'filters'
+  private readonly CLASS_FILTERS = 'filters .wrapper'
   constructor() {
+    super();
     document.addEventListener(AppEvents.EVENT_SEARCH, (event) => this.changeSearchFilterHandler.call(this, <CustomEvent>event))
-    document.addEventListener(AppEvents.EVENT_PRICE, (event) => this.changeNumberFilterHandler.call(this, <CustomEvent>event))
   }
-  
   private generateEvent() {
     document.dispatchEvent(new CustomEvent(AppEvents.EVENT_FILTER, {
       detail: {
         title: this._filterSearch,
-        price: this._filterPrice
       }
     }))
   }
@@ -24,12 +24,7 @@ export default class FilterAccumulator {
     this.generateEvent()
   }
 
-  private changeNumberFilterHandler(event: CustomEvent) {
-    this._filterPrice = event.detail?.price
-    this.generateEvent()
-  }
-
   renderFilters(): void{
-    
+    super.renderContent(this.ID_CLASS_FILTERS, this.CLASS_FILTERS)
   }
 }
