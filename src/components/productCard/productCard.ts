@@ -62,7 +62,7 @@ export default class ProductCard extends Render {
     for (let i = 0; i < this.dataObj?.images?.length; i += 1) {
       const sliderItem = super.createBlock('div', this.CLASS_SLIDER_ITEM)
       if (sliderItem instanceof HTMLDivElement) {
-        // sliderItem.style.backgroundImage = `url(${this.dataObj?.images[i]})`
+        sliderItem.style.backgroundImage = `url(${this.dataObj?.images[i]})`
       }
       sliderInner.append(sliderItem)
       if (this.dataObj?.images?.length > 1) {
