@@ -109,6 +109,11 @@ export default class Cart {
       }
     })
     this.changeDiscountedSum()
+    document.dispatchEvent(new CustomEvent(CartEvents.DELIVER_SUM, {
+      detail: {
+        totalSum: this.totalSum
+      }
+    }))
   }
 
   removeItemFromCart (key: ProductCardType): void {

@@ -3,4 +3,5 @@ export const enum CartEvents {
   OPEN_CART = 'openCart',
   CHANGE_QUANTITY = 'changeQuantity',
   APPLY_PROMO = 'applyPromo',
+  DELIVER_SUM = 'deliverSum',
 }
