@@ -1,0 +1,61 @@
+@import "./imports";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Graphik LCG";
+}
+
+html {
+  font-size: 62.5%;
+}
+
+ul {
+  list-style: none;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.wrapper {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+main {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: $color-background-main;
+  flex-grow: 1;
+}
+
+h3 {
+  font-family: "Graphik LCG";
+  font-weight: 700;
+  font-size: 3rem;
+}
+@media screen and (min-width: 767px) {
+  .wrapper {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+
+}
+@import "../components/header/header";
+@import "../components/footer/footer";
+@import "../components/productCard/productCard";
+@import "../components/catalog/catalog.scss";
+@import "../components/cart/cart.scss";
+@import "../components/filter/filter.scss"
