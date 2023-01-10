@@ -11,17 +11,20 @@ export default class Cart {
   // private readonly cardsInCart = new Map<ProductCardType, number>()
   private readonly cardsInCart = new Map<ProductCardType, Element>()
   private readonly number = this.cardsInCart.size
-  private totalSumHTML: Element | null
+  private prevSumHTML: Element | null
+  private currentSumHTML: Element | null
   private totalQuantityHTML: Element | null
   private cardsBlock: Element | null
   private readonly promoInput: Element | null
   private indexCounter = 0 // порядковый номер элемента в корзине
   private totalSum: number
-  private readonly discountedSum: number
+  private discount: number
+  private discountedSum: number
   private totalQuantity: number // общее количество итемов?
   constructor () {
     this.totalSum = 0
     this.totalQuantity = 0
+    this.discount = 1
     document.addEventListener(CartEvents.ADD_TO_CART, (event) => {
       const customEvent = event as CustomEvent
       if (customEvent.detail.isInCart === true) {
@@ -29,12 +32,14 @@ export default class Cart {
         this.cardsInCart.set(customEvent.detail.item, this.renderAddedItem(customEvent.detail.item, this.indexCounter, 1))
         this.totalQuantity++
         this.indexCounter++
-        this.totalSum += customEvent.detail.item.price
+        this.totalSum += customEvent.detail.item.price * this.discount
+        this.discountedSum += customEvent.detail.item.price
       } else if (customEvent.detail.isInCart === false) {
         this.cardsInCart.delete(customEvent.detail.item)
         this.totalQuantity--
         this.indexCounter--
-        this.totalSum -= customEvent.detail.item.price
+        this.totalSum -= customEvent.detail.item.price * this.discount
+        this.discountedSum -= customEvent.detail.item.price
       }
     })
     document.addEventListener(CartEvents.OPEN_CART, () => {
@@ -57,7 +62,7 @@ export default class Cart {
       if (main != null) {
         main.innerHTML = ''
         main?.append(cart)
-        this.totalSumHTML = document.querySelector('.' + CartClasses.CLASS_SUMMARY_SUM)
+        this.currentSumHTML = document.querySelector('.' + CartClasses.CLASS_SUMMARY_SUM)
         this.totalQuantityHTML = document.querySelector('.' + CartClasses.CLASS_SUMMARY_QUANTITY)
         this.setInitialSummary()
         this.cardsBlock = document.querySelector('.' + CartClasses.CLASS_CART_PRODUCTS_BLOCK)
@@ -85,8 +90,8 @@ export default class Cart {
   }
 
   setInitialSummary (): void {
-    if (this.totalSumHTML != null && this.totalQuantityHTML !== null) {
-      this.totalSumHTML.innerHTML = `Сумма: ${this.totalSum}$`
+    if (this.currentSumHTML != null && this.totalQuantityHTML !== null) {
+      this.currentSumHTML.innerHTML = `Сумма: ${this.totalSum}$`
       this.totalQuantityHTML.innerHTML = `Товаров в корзине: ${this.totalQuantity}`
     }
   }
@@ -96,46 +101,63 @@ export default class Cart {
     document.addEventListener(CartEvents.CHANGE_QUANTITY, (event) => {
       const customEvent = event as CustomEvent
       if (customEvent.detail.change === 'increase') {
-        this.totalSum = this.totalSum + customEvent.detail.changedSum
-        this.totalQuantity++
+        this.discountedSum = this.discountedSum + customEvent.detail.changedSum
+        this.totalSum = Number(((this.totalSum + customEvent.detail.changedSum * this.discount)).toFixed(1))
+        this.totalQuantity = customEvent.detail.itemsInCartCounter
         this.setInitialSummary()
+        this.changeDiscountedSum()
+        if (this.prevSumHTML !== null) {
+          this.prevSumHTML.innerHTML = `Сумма: ${this.discountedSum}$`
+        }
       } else {
-        this.totalSum = this.totalSum - customEvent.detail.changedSum
-        this.totalQuantity--
+        this.discountedSum = this.discountedSum - customEvent.detail.changedSum
+        this.totalSum = Number(((this.totalSum - customEvent.detail.changedSum * this.discount)).toFixed(2))
+        this.totalQuantity = customEvent.detail.itemsInCartCounter
         if (customEvent.detail.itemsInCartCounter < 1) {
           this.removeItemFromCart(customEvent.detail.item)
         }
         this.setInitialSummary()
+        this.changeDiscountedSum()
+        if (this.prevSumHTML !== null) {
+          this.prevSumHTML.innerHTML = `Сумма: ${this.discountedSum}$`
+        }
       }
+      document.dispatchEvent(new CustomEvent(CartEvents.DELIVER_SUM, {
+        detail: {
+          totalSum: this.totalSum
+        }
+      }))
     })
-    this.changeDiscountedSum()
-    document.dispatchEvent(new CustomEvent(CartEvents.DELIVER_SUM, {
-      detail: {
-        totalSum: this.totalSum
-      }
-    }))
   }
 
   removeItemFromCart (key: ProductCardType): void {
     const node = this.cardsInCart.get(key)
     node?.remove()
     this.cardsInCart.delete(key)
+    this.totalQuantity = 0
+    this.discount = 1
     this.renderCart()
   }
 
   changeDiscountedSum (): void {
-    const discountedSum = document.querySelector('.' + CartClasses.CLASS_SUMMARY_DISCOUNTED_SUM)
+    this.prevSumHTML = document.querySelector('.' + CartClasses.CLASS_SUMMARY_DISCOUNTED_SUM)
 
     document.addEventListener(CartEvents.APPLY_PROMO, (event) => {
       const customEvent = event as CustomEvent
-      console.log('applied', customEvent.detail.isPromoApplied, discountedSum, this.totalSumHTML)
-      if (customEvent.detail.isPromoApplied === true && discountedSum !== null && discountedSum instanceof HTMLDivElement) {
-        // this.discountedSum = this.totalSum
-        this.totalSum = this.totalSum - this.totalSum * customEvent.detail.discount / 100
-        console.log(`${this.totalSum} = ${this.totalSum} - ${this.totalSum} * ${customEvent.detail.discount / 100}`)
-        discountedSum.innerHTML = `Сумма: ${this.totalSum}$`
-        if (this.totalSumHTML != null) {
-          this.totalSumHTML.innerHTML = `Сумма: ${this.totalSum - this.totalSum * customEvent.detail.discount / 100}`
+      if (customEvent.detail.isPromoApplied === true &&
+        this.prevSumHTML !== null &&
+        this.prevSumHTML instanceof HTMLDivElement) {
+        this.discount = 1 - customEvent.detail.discount / 100
+        this.discountedSum = this.totalSum
+        this.totalSum = this.totalSum * this.discount
+        this.prevSumHTML.innerHTML = `Сумма: ${this.discountedSum}$`
+        if (this.currentSumHTML != null) {
+          this.currentSumHTML.innerHTML = `Сумма: ${this.totalSum}`
+          document.dispatchEvent(new CustomEvent(CartEvents.DELIVER_SUM, {
+            detail: {
+              totalSum: this.totalSum
+            }
+          }))
         }
       }
     })
