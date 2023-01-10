@@ -72,9 +72,6 @@ export default class Header extends Render {
     if (event.detail.isInCart === true) {
       this.CART_COUNTER++
       this.cartSum = this.cartSum + event.detail.item.price
-      console.log('====================================')
-      console.log(this.cartSum, this.cartSumHTML)
-      console.log('====================================')
     } else {
       this.CART_COUNTER--
       this.cartSum = this.cartSum - event.detail.item.price
@@ -99,9 +96,7 @@ export default class Header extends Render {
 
   listenQuantityChange (event: CustomEvent): void {
     const itemsCounterList = document.querySelectorAll('.cart__products')
-
     const customEvent = event
-    console.log(customEvent.detail.changedSum)
     if (customEvent.detail.change === 'increase' && typeof customEvent.detail.changedSum === 'number') {
       this.CART_COUNTER++
       this.cartSum = this.cartSum + event.detail.changedSum
